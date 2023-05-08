@@ -1,0 +1,98 @@
+specVersion: 0.0.4
+description: Radiant-v2 Graph
+repository: https://github.com/radiant-capital/radiant-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: MultiFeeDistribution
+    network: "{{ network }}"
+    source:
+      address: "{{ multi_fee_distribution_address }}"
+      abi: MultiFeeDistribution
+      startBlock: {{ multi_fee_distribution_start_block }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Relocked
+        - Locked
+        - Withdrawn
+      abis:
+        - name: MultiFeeDistribution
+          file: ./abis/MultiFeeDistribution.json
+      eventHandlers:
+        - event: Relocked(indexed address,uint256,uint256)
+          handler: handleRelocked
+        - event: Locked(indexed address,uint256,uint256,bool)
+          handler: handleLocked
+        - event: Withdrawn(indexed address,uint256,uint256,uint256,uint256,bool)
+          handler: handleWithdrawn
+      file: ./src/multi_fee_distribution.ts
+
+  - kind: ethereum/contract
+    name: ChefIncentivesController
+    network: "{{ network }}"
+    source:
+      address: "{{ chef_incentives_controller_address }}"
+      abi: ChefIncentivesController
+      startBlock: {{ chef_incentives_controller_start_block }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Disqualified
+      abis:
+        - name: ChefIncentivesController
+          file: ./abis/ChefIncentivesController.json
+      eventHandlers:
+        - event: Disqualified(indexed address)
+          handler: handleDisqualified
+      file: ./src/chef_incentives_controller.ts
+
+  - kind: ethereum/contract
+    name: MiddleFeeDistribution
+    network: "{{ network }}"
+    source:
+      address: "{{ middle_fee_distribution_address }}"
+      abi: MiddleFeeDistribution
+      startBlock: {{ middle_fee_distribution_start_block }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - NewTransferAdded
+      abis:
+        - name: MiddleFeeDistribution
+          file: ./abis/MiddleFeeDistribution.json
+      eventHandlers:
+        - event: NewTransferAdded(indexed address,uint256)
+          handler: handleNewTransferAdded
+      file: ./src/middle_fee_distribution.ts
+    
+  - kind: ethereum/contract
+    name: LendingPool
+    network: "{{ network }}"
+    source:
+      address: "{{ lending_pool_address }}"
+      abi: LendingPool
+      startBlock: {{ lending_pool_start_block }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Deposit
+        - Withdraw
+      abis:
+        - name: LendingPool
+          file: ./abis/LendingPool.json
+      eventHandlers:
+        - event: Deposit(indexed address,address,indexed address,uint256,indexed uint16)
+          handler: handleDeposit
+        - event: Withdraw(indexed address,indexed address,indexed address,uint256)
+          handler: handleWithdraw
+      file: ./src/lending_pool.ts

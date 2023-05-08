@@ -1,0 +1,74 @@
+specVersion: 0.0.4
+description: Radiant-v2 Graph
+repository: https://github.com/radiant-capital/radiant-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: MultiFeeDistribution
+    network: "chapel"
+    source:
+      address: "0x0289b4Fe1F7a80197FBb63f250C819a6B6C016C2"
+      abi: MultiFeeDistribution
+      startBlock: 28281562
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Relocked
+        - Locked
+        - Withdrawn
+      abis:
+        - name: MultiFeeDistribution
+          file: ./abis/MultiFeeDistribution.json
+      eventHandlers:
+        - event: Relocked(indexed address,uint256,uint256)
+          handler: handleRelocked
+        - event: Locked(indexed address,uint256,uint256,bool)
+          handler: handleLocked
+        - event: Withdrawn(indexed address,uint256,uint256,uint256,uint256,bool)
+          handler: handleWithdrawn
+      file: ./src/multi_fee_distribution.ts
+
+  - kind: ethereum/contract
+    name: ChefIncentivesController
+    network: "chapel"
+    source:
+      address: "0xfd2caC5fEd20ED1F349a3DF444D2bCccB6bb535F"
+      abi: ChefIncentivesController
+      startBlock: 28281562
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Disqualified
+      abis:
+        - name: ChefIncentivesController
+          file: ./abis/ChefIncentivesController.json
+      eventHandlers:
+        - event: Disqualified(indexed address,uint256)
+          handler: handleDisqualified
+      file: ./src/chef_incentives_controller.ts
+
+  - kind: ethereum/contract
+    name: MiddleFeeDistribution
+    network: "chapel"
+    source:
+      address: "0x625A5065028B5ca1c1DF813526329e5CBF9755E9"
+      abi: MiddleFeeDistribution
+      startBlock: 28281562
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - NewTransferAdded
+      abis:
+        - name: MiddleFeeDistribution
+          file: ./abis/MiddleFeeDistribution.json
+      eventHandlers:
+        - event: NewTransferAdded(indexed address,uint256)
+          handler: handleNewTransferAdded
+      file: ./src/middle_fee_distribution.ts

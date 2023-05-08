@@ -1,0 +1,138 @@
+enum Action {
+  Relocked
+  Disqualified
+  Locked
+  Withdrawn
+  NewTransferAdded
+}
+
+interface UserTransaction {
+  id: ID!
+  txHash: Bytes!
+  action: Action!
+  user: User!
+  timestamp: Int!
+}
+
+interface AssetTransaction {
+  id: ID!
+  txHash: Bytes!
+  action: Action!
+  asset: Asset!
+  timestamp: Int!
+}
+
+type Relocked implements UserTransaction @entity {
+  id: ID!
+  txHash: Bytes!
+  action: Action!
+  user: User!
+  timestamp: Int!
+
+  amount: BigInt!
+  lockIndex: BigInt!
+}
+
+type Locked implements UserTransaction @entity {
+  id: ID!
+  txHash: Bytes!
+  action: Action!
+  user: User!
+  timestamp: Int!
+
+  amount: BigInt!
+  lockedBalance: BigInt!
+  isLP: Boolean!
+}
+
+type Withdrawn implements UserTransaction @entity {
+  id: ID!
+  txHash: Bytes!
+  action: Action!
+  user: User!
+  timestamp: Int!
+
+  receivedAmount: BigInt!
+  lockedBalance: BigInt!
+  penalty: BigInt!
+  burn: BigInt!
+  isLP: Boolean!
+}
+
+type NewTransferAdded implements AssetTransaction @entity {
+  id: ID!
+  txHash: Bytes!
+  action: Action!
+  asset: Asset!
+  timestamp: Int!
+
+  lpUsdValue: BigInt!
+  totalTransferred: BigInt!
+  assetTotals: [AssetTotalTransferred!]
+  # usdcTotal: BigInt!
+  # usdtTotal: BigInt!
+  # daiTotal: BigInt!
+  # wbtcTotal: BigInt!
+  # ethTotal: BigInt!
+  # glpTotal: BigInt!
+  # fraxTotal: BigInt!
+  # busdTotal: BigInt!
+  # wethTotal: BigInt!
+  # bnbTotal: BigInt!
+  # btcbTotal: BigInt!
+  # wstETHTotal: BigInt!
+  # arbTotal: BigInt!
+}
+
+type Disqualified implements UserTransaction @entity {
+  id: ID!
+  txHash: Bytes!
+  action: Action!
+  user: User!
+  timestamp: Int!
+}
+
+type UsdTransfered @entity {
+  id: ID!
+  totalLpUsdTransfered: BigInt!
+}
+
+type LockedSupply @entity {
+  id: ID!
+  lockedSupply: BigInt!
+  address: String
+}
+
+type ReserveSize @entity {
+  id: ID!
+  amount: BigInt!
+}
+
+type User @entity {
+  id: ID!
+  relocked: [Relocked!]! @derivedFrom(field: "user")
+  disqualified: [Disqualified!]! @derivedFrom(field: "user")
+  locked: [Locked!]! @derivedFrom(field: "user")
+  withdrawn: [Withdrawn!]! @derivedFrom(field: "user")
+}
+
+type Asset @entity {
+  id: ID!
+  newTransferAdded: [NewTransferAdded!]! @derivedFrom(field: "asset")
+}
+
+type LpLocker @entity {
+  id: ID!
+  lockedBalance: BigInt!
+}
+
+type TotalTransferred @entity {
+  id: ID!
+  totalTransferred: BigInt!
+}
+
+type AssetTotalTransferred @entity{
+  id: ID!
+  symbol: String!
+  totalTransferred: BigInt!
+}

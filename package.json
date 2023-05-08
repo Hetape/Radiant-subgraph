@@ -1,0 +1,43 @@
+{
+  "name": "radiantgraph",
+  "license": "UNLICENSED",
+  "scripts": {
+    "prepare:arbgoerli": "mustache config/arbgoerli.json src/constants/index.template.ts > src/constants/index.ts && mustache config/arbgoerli.json subgraph.template.yaml > subgraph.arbgoerli.yaml",
+    "codegen:arbgoerli": "graph codegen subgraph.arbgoerli.yaml",
+    "build:arbgoerli": "graph build subgraph.arbgoerli.yaml",
+    "deploy:arbgoerli": "graph deploy --node https://api.thegraph.com/deploy/ radiantcapitaldevelopment/radiant-arbi-goerli subgraph.arbgoerli.yaml",
+    "prepare:arbitrum": "mustache config/arbitrum.json src/constants/index.template.ts > src/constants/index.ts && mustache config/arbitrum.json subgraph.template.yaml > subgraph.arbitrum.yaml",
+    "codegen:arbitrum": "graph codegen subgraph.arbitrum.yaml",
+    "build:arbitrum": "graph build subgraph.arbitrum.yaml",
+    "deploy:arbitrum": "graph deploy --node https://api.thegraph.com/deploy/ radiantcapitaldevelopment/radiantcapital subgraph.arbitrum.yaml",
+    "prepare:bsctestnet": "mustache config/bsctestnet.json src/constants/index.template.ts > src/constants/index.ts && mustache config/bsctestnet.json subgraph.template.yaml > subgraph.bsctestnet.yaml",
+    "codegen:bsctestnet": "graph codegen subgraph.bsctestnet.yaml",
+    "build:bsctestnet": "graph build subgraph.bsctestnet.yaml",
+    "deploy:bsctestnet": "graph deploy --node https://api.thegraph.com/deploy/ radiantcapitaldevelopment/bsc-testnet subgraph.bsctestnet.yaml",
+    "prepare:bsc": "mustache config/bsc.json src/constants/index.template.ts > src/constants/index.ts && mustache config/bsc.json subgraph.template.yaml > subgraph.bsc.yaml",
+    "codegen:bsc": "graph codegen subgraph.bsc.yaml",
+    "build:bsc": "graph build subgraph.bsc.yaml",
+    "deploy:bsc": "graph deploy --node https://api.thegraph.com/deploy/ radiantcapitaldevelopment/radiant-bsc subgraph.bsc.yaml",
+    "prepare:test": "mustache config/test.json src/constants/index.template.ts > src/constants/index.ts && mustache config/test.json subgraph.template.yaml > subgraph.test.yaml",
+    "codegen:test": "graph codegen subgraph.test.yaml",
+    "build:test": "graph build subgraph.test.yaml",
+    "deploy:test": "graph deploy --node https://api.thegraph.com/deploy/ sunlightluck/radiant subgraph.test.yaml",
+    "auth": "graph auth",
+    "prepare:local": "mustache config/local.json src/constants/index.template.ts > src/constants/index.ts && mustache config/local.json subgraph.template.yaml > subgraph.local.yaml",
+    "codegen:local": "graph codegen subgraph.local.yaml",
+    "build:local": "graph build subgraph.local.yaml",
+    "create:local": "graph create --node http://localhost:8020/ sunlightluck/radiantgraph",
+    "remove:local": "graph remove --node http://localhost:8020/ sunlightluck/radiantgraph",
+    "deploy:local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 sunlightluck/radiantgraph subgraph.local.yaml",
+    "start:node": "rm -rf ./graph_data && docker-compose up -d",
+    "stop:node": "docker rm -f postgres ipfs radiant_indexer"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.42.2",
+    "@graphprotocol/graph-ts": "0.29.1",
+    "mustache": "^4.2.0"
+  },
+  "devDependencies": {
+    "matchstick-as": "0.5.0"
+  }
+}

@@ -1,0 +1,77 @@
+specVersion: 0.0.4
+description: Radiant-v2 Graph
+repository: https://github.com/radiant-capital/radiant-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: MultiFeeDistribution
+    network: "31337"
+    source:
+      address: "0x0bF7dE8d71820840063D4B8653Fd3F0618986faF"
+      abi: MultiFeeDistribution
+      startBlock: 3798
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Compounded
+        - Relocked
+        - ExpiredLocksRemoved
+        - Locked
+      abis:
+        - name: MultiFeeDistribution
+          file: ./abis/MultiFeeDistribution.json
+      eventHandlers:
+        - event: Compounded(indexed address,uint256)
+          handler: handleCompounded
+        - event: Relocked(indexed address,uint256,uint256)
+          handler: handleRelocked
+        - event: ExpiredLocksRemoved(indexed address,uint256,uint256)
+          handler: handleExpiredLocksRemoved
+        - event: Locked(indexed address,uint256,bool)
+          handler: handleLocked
+      file: ./src/multi_fee_distribution.ts
+
+  - kind: ethereum/contract
+    name: ChefIncentivesController
+    network: "31337"
+    source:
+      address: "0x021DBfF4A864Aa25c51F0ad2Cd73266Fde66199d"
+      abi: ChefIncentivesController
+      startBlock: 3814
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Disqualified
+      abis:
+        - name: ChefIncentivesController
+          file: ./abis/ChefIncentivesController.json
+      eventHandlers:
+        - event: Disqualified(indexed address,uint256)
+          handler: handleDisqualified
+      file: ./src/chef_incentives_controller.ts
+
+  - kind: ethereum/contract
+    name: MFDstats
+    network: "31337"
+    source:
+      address: "0x0c03eCB91Cb50835e560a7D52190EB1a5ffba797"
+      abi: MFDstats
+      startBlock: 3789
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - NewTransferAdded
+      abis:
+        - name: MFDstats
+          file: ./abis/MFDstats.json
+      eventHandlers:
+        - event: NewTransferAdded(address,uint256,uint256)
+          handler: handleNewTransferAdded
+      file: ./src/mfd_stats.ts

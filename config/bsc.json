@@ -1,0 +1,20 @@
+{
+  "network": "bsc",
+  "multi_fee_distribution_address": "0x4FD9F7C5ca0829A656561486baDA018505dfcB5E",
+  "chef_incentives_controller_address": "0x7C16aBb090d3FB266E9d17F60174B632f4229933",
+  "middle_fee_distribution_address": "0xcebdff400A23E5Ad1CDeB11AfdD0087d5E9dFed8",
+  "lending_pool_address": "0xd50Cf00b6e600Dd036Ba8eF475677d816d6c4281",
+  "multi_fee_distribution_start_block": 26832003,
+  "chef_incentives_controller_start_block": 26832003,
+  "middle_fee_distribution_start_block": 26832003,
+  "lending_pool_start_block": 26832003,
+  "asset_symbols": ["BUSD", "USDT", "USDC", "BTCB", "BNB", "ETH"],
+  "rToken_addresses": [
+    "0x89d763e8532D256a3e3e60c1C218Ac71E71cF664",
+    "0x4Ff2DD7c6435789E0BB56B0553142Ad00878a004",
+    "0x3bDCEf9e656fD9D03eA98605946b4fbF362C342b",
+    "0x34d4F4459c1b529BEbE1c426F1e584151BE2C1e5",
+    "0x58b0BB56CFDfc5192989461dD43568bcfB2797Db",
+    "0x455a281D508B4e34d55b31AC2e4579BD9b77cA8E"
+  ]
+}

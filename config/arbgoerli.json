@@ -1,0 +1,19 @@
+{
+  "network": "arbitrum-goerli",
+  "multi_fee_distribution_address": "0xa70C0E3cEea9AD9593ef15824c1663f8A8451f1f",
+  "chef_incentives_controller_address": "0xBdb5D78886206CA0b1fe011EeDdc3D1b9021eF12",
+  "middle_fee_distribution_address": "0x20F604C51E8c2671b6f2cbb6d9c8E5844d796b95",
+  "lp_fee_distribution_start_block": 10985464,
+  "chef_incentives_controller_start_block": 10985464,
+  "middle_fee_distribution_start_block": 10985464,
+  "asset_symbols": ["USDC", "USDT", "DAI", "WBTC", "ETH", "GLP", "FRAX"],
+  "rToken_addresses": [
+    "0xB98d5dB1480B785A2E93dbB2ea9Ce1bf3dfaA190",
+    "0x2E30D700A1896508e16c35A871BE0287ecd1Ac7D",
+    "0x87a936EdC0E488B30A5F381EE890389c203dD8d3",
+    "0x98A4108c3A2f38B06F6E9061256dc09023e58436",
+    "0x8F87962a94B7f2fCBb38649799e6642c602f9e65",
+    "0x8e9eac9Fc9D67df3179bD6EdB44e5AC935DDbD71",
+    "0x8e37778DFEb4cdD9ffE7ee21231E762ce799F910"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "network": "chapel",
+  "multi_fee_distribution_address": "0x0289b4Fe1F7a80197FBb63f250C819a6B6C016C2",
+  "chef_incentives_controller_address": "0xfd2caC5fEd20ED1F349a3DF444D2bCccB6bb535F",
+  "middle_fee_distribution_address": "0x625A5065028B5ca1c1DF813526329e5CBF9755E9",
+  "multi_fee_distribution_start_block": 28281562,
+  "chef_incentives_controller_start_block": 28281562,
+  "middle_fee_distribution_start_block": 28281562,
+  "asset_symbols": ["BUSD", "USDT", "DAI", "WBTC", "BNB", "WETH"],
+  "rToken_addresses": [
+    "0x43327100d567cB2806a966973ba40b31AC4afAC1",
+    "0x6834B897d14FE9CBAfe58114057050e41F53E5C5",
+    "0x9B9350461BE09C1Fe06BAc03C5c361B58c0B484E",
+    "0x0ED0bFeC9cB81A59cCadAeC5083bE56113f81513",
+    "0xC5C3c8f8e818eB9826c8c15c35d544C16dFf1496",
+    "0x2E78b91D2Fee0BCcB6962207d0136003709f4675"
+  ]
+}
